@@ -26,11 +26,11 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String registerUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
-        if (!isUserExist(model, userForm) && isPasswordMatch(model, userForm)) {
-            model.addAttribute("registered", "You have been successfully registered");
-            return "login";
+        if (!isPasswordMatch(model, userForm) || isUserExist(model, userForm)) {
+            return "registration";
         }
-        return "registration";
+        model.addAttribute("registered", "You have been successfully registered");
+        return "login";
     }
 
 
